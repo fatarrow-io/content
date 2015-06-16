@@ -141,3 +141,77 @@ _Zach: Looking at this now, I think the optional file load order section should 
 
 Onto bootstrapping the app.
 
+## Bootstrapping the app
+
+```
+ng2-js-routing
+├── app
+│   ├── app.html
+│   └── app.js
+├── index.html
+└── index.js
+```
+
+`index.html`
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    This file is located at <strong>index.html</strong>
+    <app>
+    </app>
+    
+    <script src="https://code.angularjs.org/2.0.0-alpha.26/angular2.sfx.dev.js"></script>
+    <script src="app/app.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
+```
+
+`app.html`
+
+```html
+This file is located at <strong>app/app.html</strong>
+```
+
+`app.js`
+
+```javascript
+function AppComponent() {}
+
+AppComponent.annotations = [
+  new angular.ComponentAnnotation({
+    selector: 'app'
+  }),
+  new angular.ViewAnnotation({
+    templateUrl: 'app/app.html'
+  })
+];
+```
+
+`index.js`
+
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+  console.log(AppComponent)
+});
+```
+
+<image src="8.png" />
+
+```javascript
+document.addEventListener('DOMContentLoaded', function() {
+  angular.bootstrap(AppComponent);
+});
+```
+
+<image src="9.png" />
+
+[server](http://stackoverflow.com/a/12905427)
+
+<image src="10.png" />
+
+
