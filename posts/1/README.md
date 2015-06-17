@@ -146,6 +146,7 @@ Onto bootstrapping the app.
 ```
 ng2-js-routing
 ├── app
+│   ├── app.css
 │   ├── app.html
 │   └── app.js
 ├── index.html
@@ -160,7 +161,6 @@ ng2-js-routing
   <head>
   </head>
   <body>
-    This file is located at <strong>index.html</strong>
     <app>
     </app>
     
@@ -213,5 +213,119 @@ document.addEventListener('DOMContentLoaded', function() {
 [server](http://stackoverflow.com/a/12905427)
 
 <image src="10.png" />
+
+`app.css`
+
+```css
+app .container {
+  display: -webkit-flex;
+  display: flex;
+}
+app nav {
+  width: 200px;
+}
+app .main {
+  -webkit-flex: 1;
+  flex: 1;
+}
+```
+
+`app.html`
+
+```html
+<div class="container">
+  <nav>
+    <ul>
+      <li>
+        <a href="">Home</a>
+      </li>
+      <li>
+        <a href="">About</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="main">
+  </div>
+</div>
+```
+
+<image src="11.png" />
+
+## Inject the Router
+
+`index.js`
+
+```js
+document.addEventListener('DOMContentLoaded', function() {
+  angular.bootstrap(AppComponent, [
+    angular.router.routerInjectables
+  ]);
+});
+```
+
+`app.js`
+
+```js
+function AppComponent(router) {
+  console.log(router)
+}
+
+AppComponent.parameters = [[angular.router.Router]]
+
+AppComponent.annotations = [
+  new angular.ComponentAnnotation({
+    selector: 'app',
+    injectables: [angular.router.Router]
+  }),
+  new angular.ViewAnnotation({
+    templateUrl: 'app/app.html'
+  })
+];
+```
+
+<image src="12.png" />
+
+## Configure The Router
+
+```
+ng2-js-routing
+├── app
+│   ├── app.css
+│   ├── app.html
+│   ├── app.js
+│   └── home
+│       ├── home.html
+│       └── home.js
+├── index.html
+└── index.js
+```
+
+`app.js`
+
+```javascript
+function AppComponent(router) {
+  router.config({
+    path: '/',
+    component: Home,
+    as: 'home'
+  })
+}
+```
+
+`home.js`
+
+```javascript
+function HomeComponent () {
+  console.log('HomeComponent instantiated')
+}
+
+HomeComponent.annotations = [
+  new angular.ComponentAnnotation({
+  })
+]
+```
+
+<image src="13.png" />
 
 
