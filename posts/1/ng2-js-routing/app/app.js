@@ -6,7 +6,7 @@ function AppComponent(router) {
   })
 
   router.config({
-    path: '/about',
+    path: '/#/about',
     component: AboutComponent,
     as: 'about'
   })

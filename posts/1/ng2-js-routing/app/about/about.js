@@ -1,7 +1,9 @@
 function AboutComponent() {
-  console.log('AboutComponent instantiated')
 }
 
 AboutComponent.annotations = [
-  new angular.ComponentAnnotation()
+  new angular.ComponentAnnotation(),
+  new angular.ViewAnnotation({
+    templateUrl: 'app/about/about.html'
+  })
 ]

@@ -405,5 +405,179 @@ Now when we point the browser to _http://localhost:8080/#/about_ we see Angular 
 
 *Note:* I've not actually been successful in this yet. Theoretical.
 
+## Add Outlet
+
+Now we're going to add an outlet so we can see what happens when the link changes. First, we'll inject the `Outlet` directive.
+
+`app.js`
+
+```javascript
+function AppComponent(router) {
+  router.config({
+    path: '/',
+    component: HomeComponent,
+    as: 'home'
+  })
+
+  router.config({
+    path: '/#/about',
+    component: AboutComponent,
+    as: 'about'
+  })
+}
+
+AppComponent.parameters = [[angular.router.Router]]
+
+AppComponent.annotations = [
+  new angular.ComponentAnnotation({
+    selector: 'app',
+    injectables: [angular.router.Router]
+  }),
+  new angular.ViewAnnotation({
+    templateUrl: 'app/app.html',
+    directives: [
+      angular.router.RouterOutlet
+    ]
+  })
+];
+```
+
+Now we'll add the outlet to our HTML.
+
+`app.html`
+
+```html
+<div class="container">
+  <nav>
+    <ul>
+      <li><a href="">Home</a></li>
+      <li><a href="">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+```
+
+Finally, we'll add 2 html files.
+
+```
+├── app
+│   ├── about
+│   │   ├── about.html
+│   │   └── about.js
+│   ├── app.css
+│   ├── app.html
+│   ├── app.js
+│   └── home
+│       ├── home.html
+│       └── home.js
+├── index.html
+└── index.js
+```
+
+`app/home/home.html`
+
+```html
+This file is located at <strong>app/home/home.html</strong>
+```
+
+`app/about/about.html`
+
+```html
+This file is located at <strong>app/about/about.html</strong>
+```
+
+
+Now we need to tell the home component where to get its template.
+
+`app/home/home.js`
+
+```javascript
+function HomeComponent () {
+}
+
+HomeComponent.annotations = [
+  new angular.ComponentAnnotation({
+  }),
+  new angular.ViewAnnotation({
+    templateUrl: 'app/home/home.html'
+  })
+]
+```
+
+
+```javascript
+function AboutComponent() {
+}
+
+AboutComponent.annotations = [
+  new angular.ComponentAnnotation()
+  new angular.ViewAnnotation({
+    templateUrl: 'app/about/about.html'
+  })
+]
+```
+
+<image src="14.png" />
+
+## Router-Link
+
+Next we need to be able to link to our routes. To do this we'll inject and then use the router-link directive.
+
+`app.js`
+
+```javascript
+function AppComponent(router) {
+  router.config({
+    path: '/',
+    component: HomeComponent,
+    as: 'home'
+  })
+
+  router.config({
+    path: '/#/about',
+    component: AboutComponent,
+    as: 'about'
+  })
+}
+
+AppComponent.parameters = [[angular.router.Router]]
+
+AppComponent.annotations = [
+  new angular.ComponentAnnotation({
+    selector: 'app',
+    injectables: [angular.router.Router]
+  }),
+  new angular.ViewAnnotation({
+    templateUrl: 'app/app.html',
+    directives: [
+      angular.router.RouterLink,
+      angular.router.RouterOutlet
+    ]
+  })
+];
+```
+
+`app.html`
+
+```html
+<div class="container">
+  <nav>
+    <ul>
+      <li><a router-link="home">Home</a></li>
+      <li><a router-link="about">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+```
+
+<image src="angular2-routing.gif" />
 
 
