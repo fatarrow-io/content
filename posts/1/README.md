@@ -295,7 +295,6 @@ ng2-js-routing
 │   ├── app.html
 │   ├── app.js
 │   └── home
-│       ├── home.html
 │       └── home.js
 ├── index.html
 └── index.js
@@ -313,10 +312,12 @@ function AppComponent(router) {
 }
 ```
 
+Notice that in `home.js` we need to add a `ComponentAnnotation`, otherwise Angular will complain that the given constructor isn't a component. In some ways, the `ComponentAnnotation` is the only thing distinguishing an Angular component from any other plain old JavaScript constuctor function.
+
 `home.js`
 
 ```javascript
-function HomeComponent () {
+function HomeComponent() {
   console.log('HomeComponent instantiated')
 }
 
@@ -327,5 +328,82 @@ HomeComponent.annotations = [
 ```
 
 <image src="13.png" />
+
+Now let's add another route and another component.
+
+```
+.
+├── app
+│   ├── about
+│   │   └── about.js
+│   ├── app.css
+│   ├── app.html
+│   ├── app.js
+│   └── home
+│       └── home.js
+├── index.html
+└── index.js
+
+```
+
+`app/about.js`
+
+```javascript
+function AboutComponent() {
+  console.log('AboutComponent instantiated')
+}
+
+AboutComponent.annotations = [
+  new angular.ComponentAnnotation()
+]
+```
+
+Now we'll configure the `about` route.
+
+`app.js`
+
+```javascript
+function AppComponent(router) {
+  router.config({
+    path: '/',
+    component: HomeComponent,
+    as: 'home'
+  })
+
+  router.config({
+    path: '/#/about',
+    component: AboutComponent,
+    as: 'about'
+  })
+}
+```
+
+Note that we're using a hash in the `about` route's path so we can avoid configuring the server for push state.
+
+And since we're simply linking static js files, we need to modify `index.html` to load `about.js`
+
+`index.html`
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <app>
+    </app>
+
+    <script src="https://code.angularjs.org/2.0.0-alpha.26/angular2.sfx.dev.js"></script>
+    <script src="app/about/about.js"></script>
+    <script src="app/home/home.js"></script>
+    <script src="app/app.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
+```
+Now when we point the browser to _http://localhost:8080/#/about_ we see Angular has loaded the `AboutComponent.`
+
+*Note:* I've not actually been successful in this yet. Theoretical.
+
 
 
