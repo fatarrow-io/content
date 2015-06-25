@@ -1,21 +1,17 @@
 function AppComponent(router) {
-  router.config({
+  router.config([{
     path: '/',
     component: HomeComponent,
     as: 'home'
-  })
-
-  router.config({
+  },{
     path: '/about',
     component: AboutComponent,
     as: 'about'
-  })
-
-  router.config({
+  },{
     path: '/posts/:id',
     component: PostComponent,
     as: 'post'
-  })
+  }])
 }
 
 AppComponent.parameters = [[angular.router.Router]]
