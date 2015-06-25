@@ -6,9 +6,15 @@ function AppComponent(router) {
   })
 
   router.config({
-    path: '/#/about',
+    path: '/about',
     component: AboutComponent,
     as: 'about'
+  })
+
+  router.config({
+    path: '/posts/:id',
+    component: PostComponent,
+    as: 'post'
   })
 }
 

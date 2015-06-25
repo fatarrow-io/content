@@ -580,4 +580,75 @@ AppComponent.annotations = [
 
 <image src="angular2-routing.gif" />
 
+## Basic Route Params
+
+Create 2 new files. `app/posts/post.js` and `app/posts/post.html`.
+
+```
+.
+├── app
+│   └── posts
+│       ├── post.html
+│       └── post.js
+```
+
+Add `posts.js` to `index.html`
+
+`index.html`
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <app>
+    </app>
+
+    <script src="https://code.angularjs.org/2.0.0-alpha.27/angular2.sfx.dev.js"></script>
+    <script src="app/posts/post.js"></script>
+    <script src="app/about/about.js"></script>
+    <script src="app/home/home.js"></script>
+    <script src="app/app.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
+```
+
+
+Add the new route to `app.js`
+
+```javascript
+function AppComponent(router) {
+  router.config({
+    path: '/',
+    component: HomeComponent,
+    as: 'home'
+  })
+
+  router.config({
+    path: '/about',
+    component: AboutComponent,
+    as: 'about'
+  })
+
+  router.config({
+    path: '/posts/:id',
+    component: PostComponent,
+    as: 'post'
+  })
+}
+```
+
+Now we're going to add the minimum JavaScript to make our `PostComponent`
+
+`app/posts/post.js`
+
+```javascript
+function PostComponent() {}
+
+PostComponent.annotations = [
+  new angular.ComponentAnnotation()
+]
+```
 
