@@ -304,11 +304,11 @@ ng2-js-routing
 
 ```javascript
 function AppComponent(router) {
-  router.config({
+  router.config([{
     path: '/',
     component: Home,
     as: 'home'
-  })
+  }])
 }
 ```
 
@@ -364,17 +364,16 @@ Now we'll configure the `about` route.
 
 ```javascript
 function AppComponent(router) {
-  router.config({
+  router.config([{
     path: '/',
     component: HomeComponent,
     as: 'home'
-  })
-
-  router.config({
-    path: '/#/about',
+  },{
+    path: '/about',
     component: AboutComponent,
     as: 'about'
-  })
+  }])
+)
 }
 ```
 
@@ -413,17 +412,15 @@ Now we're going to add an outlet so we can see what happens when the link change
 
 ```javascript
 function AppComponent(router) {
-  router.config({
+ router.config([{
     path: '/',
     component: HomeComponent,
     as: 'home'
-  })
-
-  router.config({
-    path: '/#/about',
+  },{
+    path: '/about',
     component: AboutComponent,
     as: 'about'
-  })
+  }])
 }
 
 AppComponent.parameters = [[angular.router.Router]]
@@ -531,17 +528,15 @@ Next we need to be able to link to our routes. To do this we'll inject and then 
 
 ```javascript
 function AppComponent(router) {
-  router.config({
+ router.config([{
     path: '/',
     component: HomeComponent,
     as: 'home'
-  })
-
-  router.config({
-    path: '/#/about',
+  },{
+    path: '/about',
     component: AboutComponent,
     as: 'about'
-  })
+  }])
 }
 
 AppComponent.parameters = [[angular.router.Router]]
@@ -620,24 +615,20 @@ Add the new route to `app.js`
 
 ```javascript
 function AppComponent(router) {
-  router.config({
+  router.config([{
     path: '/',
     component: HomeComponent,
     as: 'home'
-  })
-
-  router.config({
+  },{
     path: '/about',
     component: AboutComponent,
     as: 'about'
-  })
-
-  router.config({
+  },{
     path: '/posts/:id',
     component: PostComponent,
     as: 'post'
-  })
-}
+  }])
+
 ```
 
 Now we're going to add the minimum JavaScript to make our `PostComponent`
@@ -649,6 +640,45 @@ function PostComponent() {}
 
 PostComponent.annotations = [
   new angular.ComponentAnnotation()
+]
+```
+
+Add `router-link`s with params to our template.
+
+`app/app.html`
+
+```html
+<div class="container">
+  <nav>
+    <ul>
+      <li><a router-link="home">Home</a></li>
+      <li><a router-link="about">About</a></li>
+      <li><a router-link="post" [router-params]="{id: 1}">Post 1</a></li>
+      <li><a router-link="post" [router-params]="{id: 2}">Post 2</a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+```
+Then inject `RouteParams` into the `PostComponent`.
+
+`app/posts/post.js`
+
+```JavaScript
+function PostComponent(routeParams) {
+  console.log(routeParams.params)
+}
+
+
+PostComponent.parameters = [[angular.router.RouteParams]]
+
+PostComponent.annotations = [
+  new angular.ComponentAnnotation({
+    injectables: [angular.router.RouteParams]
+  })
 ]
 ```
 

@@ -3,11 +3,11 @@ function AppComponent(router) {
     path: '/',
     component: HomeComponent,
     as: 'home'
-  },{
+  }, {
     path: '/about',
     component: AboutComponent,
     as: 'about'
-  },{
+  }, {
     path: '/posts/:id',
     component: PostComponent,
     as: 'post'
