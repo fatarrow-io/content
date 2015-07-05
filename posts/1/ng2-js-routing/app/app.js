@@ -1,4 +1,4 @@
-function AppComponent(router) {
+function AppComponent(router, locationStrategy) {
   router.config([{
     path: '/',
     component: HomeComponent,
@@ -12,17 +12,22 @@ function AppComponent(router) {
     component: PostComponent,
     as: 'post'
   }])
+
+  console.log(locationStrategy)
 }
 
-AppComponent.parameters = [[angular.router.Router]]
+AppComponent.parameters = [
+  [angular.router.Router],
+  [angular.router.LocationStrategy]
+]
 
 AppComponent.annotations = [
   new angular.ComponentAnnotation({
     selector: 'app',
-    injectables: [angular.router.Router]
+    injectables: [angular.router.Router, angular.router.LocationStrategy]
   }),
   new angular.ViewAnnotation({
-    templateUrl: 'app/app.html',
+    templateUrl: '/app/app.html',
     directives: [
       angular.router.RouterLink,
       angular.router.RouterOutlet
