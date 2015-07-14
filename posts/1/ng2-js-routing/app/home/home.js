@@ -2,9 +2,9 @@ function HomeComponent () {
 }
 
 HomeComponent.annotations = [
-  new angular.ComponentAnnotation({
+  new ng.ComponentAnnotation({
   }),
-  new angular.ViewAnnotation({
+  new ng.ViewAnnotation({
     templateUrl: '/app/home/home.html'
   })
 ]

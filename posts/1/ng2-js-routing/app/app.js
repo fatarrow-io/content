@@ -17,20 +17,20 @@ function AppComponent(router, locationStrategy) {
 }
 
 AppComponent.parameters = [
-  [angular.router.Router],
-  [angular.router.LocationStrategy]
+  [ng.router.Router],
+  [ng.router.LocationStrategy]
 ]
 
 AppComponent.annotations = [
-  new angular.ComponentAnnotation({
+  new ng.ComponentAnnotation({
     selector: 'app',
-    injectables: [angular.router.Router, angular.router.LocationStrategy]
+    injectables: [ng.router.Router, ng.router.LocationStrategy]
   }),
-  new angular.ViewAnnotation({
+  new ng.ViewAnnotation({
     templateUrl: '/app/app.html',
     directives: [
-      angular.router.RouterLink,
-      angular.router.RouterOutlet
+      ng.router.RouterLink,
+      ng.router.RouterOutlet
     ]
   })
 ];

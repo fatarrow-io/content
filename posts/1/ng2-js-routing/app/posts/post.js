@@ -3,13 +3,13 @@ function PostComponent(routeParams) {
 }
 
 
-PostComponent.parameters = [[angular.router.RouteParams]]
+PostComponent.parameters = [[ng.router.RouteParams]]
 
 PostComponent.annotations = [
-  new angular.ComponentAnnotation({
-    injectables: [angular.router.RouteParams]
+  new ng.ComponentAnnotation({
+    injectables: [ng.router.RouteParams]
   }),
-  new angular.ViewAnnotation({
+  new ng.ViewAnnotation({
     template: ''
   })
 ]

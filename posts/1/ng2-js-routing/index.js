@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-  window.app = angular.bootstrap(AppComponent, [
-    angular.router.routerInjectables,
-    angular.bind(angular.router.LocationStrategy).toClass(angular.router.HashLocationStrategy)
+  window.app = ng.bootstrap(AppComponent, [
+    ng.router.routerInjectables,
+    ng.bind(ng.router.LocationStrategy).toClass(ng.router.HashLocationStrategy)
   ]);
 });
