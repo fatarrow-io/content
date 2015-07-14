@@ -13,7 +13,6 @@ function AppComponent(router, locationStrategy) {
     as: 'post'
   }])
 
-  console.log(locationStrategy)
 }
 
 AppComponent.parameters = [
