@@ -2,20 +2,24 @@ function AppComponent(weather) {
   var self = this
 
   function init() {
-    self.version = ''
-    http.get('https://api.github.com/repos/angular/angular/tags')
-    .observer({
-      next: function (res) {
-        self.version = res.json()[0].name
-      }
+    self.weather = {}
+  }
+
+  self.locate = function() {
+    navigator.geolocation.getCurrentPosition(function(position) {
+       weather.get({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      }).observer({
+        next: function(res) {
+          self.weather = res.json().weather[0]
+        }
+      })
+
     })
   }
 
-  self.handleZipForm = function(zipcode) {
-    console.log(weather.get(zipcode))
-  }
-
-  // init()
+  init()
   return self
 }
 

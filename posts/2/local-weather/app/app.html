@@ -1,8 +1,5 @@
 <h1>Local Weather</h1>
 <h2>
-  <form id="zip-form" (submit)="handleZipForm(zipcode.value); $event.preventDefault()">
-    <input placeholder="zip" #zipcode (keyup)></input>
-    <button form="zip-form" type="submit">Done</button>
-  </form>
+    <button (click)="locate()" type="submit">Get Weather</button>
 </h2>
-<h2>{{ zipcode.value }}</h2>
+<h2>{{ weather.description || "" }}</h2>
